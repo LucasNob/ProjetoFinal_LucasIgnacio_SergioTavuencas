@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionarios</title>
+</head>
+<body>
+    <h1>Cadastro de funcionarios</h1>
+
+    <form th:action="@{/salvarfuncionario}" th:object="${funcionario}" method="POST">
+        <input type="text" placeholder="Nome"><br>
+        <!--mask
+        <input type="text" class="form-control phone-ddd-mask"><br>
+        <input type="text" class="form-control" data-mask="000/000/000/00">-->
+        <input type="submit">
+    </form>
+    <table>
+        
+    </table>
+
+
+</body>
+</html>

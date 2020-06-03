@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão Template</title>
+    <style>
+        table, th, td {
+          border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center"><a href="/">Menu</a></h1>
+    <br>
+    <div align="center">
+        <h1>Cadastro</h1>
+        <form th:action="@{/salao/cadastrar}" th:object="${salao}" method="POST">
+            <table>
+                <tr>
+                    <td>Nome:</td>
+                    <td><input type="text" name="nome" required/></td>
+                </tr>
+                <tr>
+                    <td>Telefone:</td>
+                    <td><input type="text" name="telefone" required/></td>
+                </tr>
+            </table>
+            <div>
+                <input type="submit" value="Cadastrar"/>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div align="center">
+        <table>
+            <h1>Salões</h1>
+        
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+        
+            <tr th:each="salao : ${saloes}">
+                <td th:text="${salao.id}"></td>
+                <td th:text="${salao.nome}"></td>
+                <td th:text="${salao.telefone}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

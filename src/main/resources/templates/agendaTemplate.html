@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Template</title>
+    <style>
+        table, th, td {
+          border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center"><a href="/">Menu</a></h1>
+    <br>
+    <div align="center">
+        <h1>Agendamento</h1>
+        <form th:action="@{/agenda/agendar}" th:object="${agenda}" method="POST">
+            <table>
+                <tr>
+                    <td>Data:</td>
+                    <td><input type="date" name="data" required/></td>
+                </tr>
+                <!--
+                <tr>
+                    <td>Horário:</td>
+                    <td><input type="time" name="horario" required/></td>
+                </tr>
+                -->
+            </table>
+            <div>
+                <input type="submit" value="Agendar"/>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div>
+        <table>
+            <h1>Agendamentos</h1>
+        
+            <tr>
+                <th>Id</th>
+                <th>Data</th>
+                <th>Horario</th>
+                <th>Cliente</th>
+                <th>Funcionário</th>
+            </tr>
+        
+            <tr th:each="agendamento : ${agendamentos}">
+                <td th:text="${agendamento.id}"></td>
+                <td th:text="${agendamento.data}"></td>
+                <td th:text="${agendamento.horario}"></td>
+                <td th:text="${agendamento.cliente.nome}"></td>
+                <td th:text="${agendamento.funcionario.nome}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

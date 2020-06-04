@@ -2,7 +2,7 @@ package com.projetofinal.projetofinalnobregavicente.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +22,7 @@ public class Agenda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Date data;
-    private Time horario;
+    private Timestamp data;
     //implementar status no html
 
     @OneToOne
@@ -39,22 +38,6 @@ public class Agenda implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Time getHorario() {
-        return horario;
-    }
-
-    public void setHorario(Time horario) {
-        this.horario = horario;
     }
 
     public Cliente getCliente() {
@@ -75,7 +58,14 @@ public class Agenda implements Serializable {
 
     @Override
     public String toString() {
-        return "Agenda [cliente=" + cliente + ", data=" + data + ", funcionario=" + funcionario + ", horario=" + horario
-                + ", id=" + id + "]";
+        return "Agenda [cliente=" + cliente + ", data=" + data + ", funcionario=" + funcionario + ", id=" + id + "]";
+    }
+
+    public Timestamp getData() {
+        return data;
+    }
+
+    public void setData(Timestamp data) {
+        this.data = data;
     }
 }

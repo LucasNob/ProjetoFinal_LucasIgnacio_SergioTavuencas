@@ -19,14 +19,12 @@
             <table>
                 <tr>
                     <td>Data:</td>
-                    <td><input type="date" name="data" required/></td>
+                    <td><input type="date" name="date" required/></td>
                 </tr>
-                <!--
                 <tr>
-                    <td>Horário:</td>
-                    <td><input type="time" name="horario" required/></td>
+                    <td>Hora:</td>
+                    <td><input type="time" name="hour" required/></td>
                 </tr>
-                -->
             </table>
             <div>
                 <input type="submit" value="Agendar"/>
@@ -35,14 +33,13 @@
     </div>
     <br>
     <br>
-    <div>
+    <div align="center">
         <table>
             <h1>Agendamentos</h1>
         
             <tr>
                 <th>Id</th>
                 <th>Data</th>
-                <th>Horario</th>
                 <th>Cliente</th>
                 <th>Funcionário</th>
             </tr>
@@ -50,9 +47,8 @@
             <tr th:each="agendamento : ${agendamentos}">
                 <td th:text="${agendamento.id}"></td>
                 <td th:text="${agendamento.data}"></td>
-                <td th:text="${agendamento.horario}"></td>
-                <td th:text="${agendamento.cliente.nome}"></td>
-                <td th:text="${agendamento.funcionario.nome}"></td>
+                <td th:text="${agendamento.cliente?.nome}"></td>
+                <td th:text="${agendamento.funcionario?.nome}"></td>
             </tr>
         </table>
     </div>

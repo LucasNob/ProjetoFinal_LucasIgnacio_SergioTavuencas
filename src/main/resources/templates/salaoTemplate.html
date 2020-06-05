@@ -25,6 +25,10 @@
                     <td>Telefone:</td>
                     <td><input type="text" name="telefone" required/></td>
                 </tr>
+                <tr>
+                    <td>Endereço:</td>
+                    <td><input type="text" name="endereco" required/></td>
+                </tr>
             </table>
             <div>
                 <input type="submit" value="Cadastrar"/>
@@ -41,12 +45,14 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Telefone</th>
+                <th>Endereço</th>
             </tr>
         
             <tr th:each="salao : ${saloes}">
                 <td th:text="${salao.id}"></td>
                 <td th:text="${salao.nome}"></td>
                 <td th:text="${salao.telefone}"></td>
+                <td th:text="${salao.endereco}"></td>
             </tr>
         </table>
     </div>

@@ -18,6 +18,30 @@
         <form th:action="@{/agenda/agendar}" th:object="${agenda}" method="POST">
             <table>
                 <tr>
+                    <td>Cliente: </td>
+                    <td>
+                        <select name="cliente" required>
+                            <option value="">Escolha um Cliente</option>
+                            <option th:each="cliente : ${clientes}"
+                                    th:value="${cliente.id}"
+                                    th:text="${cliente.nome}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Funcionário: </td>
+                    <td>
+                        <select name="funcionario" required>
+                            <option value="">Escolha um Funcionário</option>
+                            <option th:each="funcionario : ${funcionarios}"
+                                    th:value="${funcionario.id}"
+                                    th:text="${funcionario.nome}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>Data:</td>
                     <td><input type="date" name="date" required/></td>
                 </tr>
@@ -39,7 +63,7 @@
         
             <tr>
                 <th>Id</th>
-                <th>Data</th>
+                <th>Data e Hora</th>
                 <th>Cliente</th>
                 <th>Funcionário</th>
             </tr>

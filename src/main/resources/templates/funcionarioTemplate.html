@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionário Template</title>
+    <style>
+        table, th, td {
+          border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center"><a href="/">Menu</a></h1>
+    <br>
+    <div align="center">
+        <h1>Cadastro</h1>
+        <form th:action="@{/funcionario/cadastrar}" th:object="${funcionario}" method="POST">
+            <table>
+                <tr>
+                    <td>Nome:</td>
+                    <td><input type="text" name="nome" required/></td>
+                </tr>
+                <tr>
+                    <td>CPF:</td>
+                    <td><input type="text" name="cpf" required/></td>
+                </tr>
+                <tr>
+                    <td>Telefone:</td>
+                    <td><input type="text" name="telefone" required/></td>
+                </tr>
+                <tr>
+                    <td>Salão: </td>
+                    <td>
+                        <select name="salao" required>
+                            <option value="">Escolha um Salão</option>
+                            <option th:each="salao : ${saloes}"
+                                    th:value="${salao.id}"
+                                    th:text="${salao.nome}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <input type="submit" value="Cadastrar"/>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div align="center">
+        <table>
+            <h1>Funcionários</h1>
+        
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Salão</th>
+            </tr>
+        
+            <tr th:each="funcionario : ${funcionarios}">
+                <td th:text="${funcionario.id}"></td>
+                <td th:text="${funcionario.nome}"></td>
+                <td th:text="${funcionario.cpf}"></td>
+                <td th:text="${funcionario.telefone}"></td>
+                <td th:text="${funcionario.salao?.nome}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

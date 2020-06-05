@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SalaoController {
     
     @Autowired
-    SalaoService salaoService;
+    private SalaoService salaoService;
 
     @GetMapping("/template")
     public ModelAndView getTemplate() {

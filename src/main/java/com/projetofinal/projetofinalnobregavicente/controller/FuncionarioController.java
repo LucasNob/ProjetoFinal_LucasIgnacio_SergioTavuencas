@@ -2,6 +2,7 @@ package com.projetofinal.projetofinalnobregavicente.controller;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
 import com.projetofinal.projetofinalnobregavicente.services.FuncionarioService;
+import com.projetofinal.projetofinalnobregavicente.services.SalaoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,38 +10,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/funcionario")
 public class FuncionarioController {
     
     @Autowired
-    private FuncionarioService funcService;
+    private FuncionarioService funcionarioService;
 
-    @GetMapping("/listarfuncionarios")
-    public ModelAndView listarFuncionarios(){
-        ModelAndView mv= new ModelAndView("listarFuncionariosT");
-        mv.addObject("funcionarios", funcService.getAllFuncionarios());
+    @Autowired
+    private SalaoService salaoService;
+
+    @GetMapping("/template")
+    public ModelAndView getTemplate(){
+        ModelAndView mv= new ModelAndView("funcionarioTemplate");
+        mv.addObject("funcionario", new Funcionario());
+        mv.addObject("funcionarios", funcionarioService.getAllFuncionarios());
+        mv.addObject("saloes", salaoService.getAllSalaos());
         return mv;
     }
 
-    @GetMapping("/cadastrofuncionario")
-    public ModelAndView cadastroFuncionario(){
-        ModelAndView mv = new ModelAndView("cadastrarFuncionarioT");
-        mv.addObject("funcionarios", funcService.getAllFuncionarios());
-        return mv;
+    @PostMapping("/cadastrar")
+    public String savefuncionario(@ModelAttribute Funcionario funcionario){
+        funcionarioService.saveFuncionario(funcionario);
+        return "redirect:/funcionario/template";
     }
 
-    @PostMapping("/salvarfuncionario")
-    public String salvarfuncionario(@ModelAttribute Funcionario func){
-        funcService.saveFuncionario(func);
-        return "redirect:/cadastrofuncionario";
-    }
-
-    @GetMapping("/detalhesfuncionario/{id}")
+    @GetMapping("/detalhes/{id}")
     public ModelAndView detalhesFuncionario(@PathVariable(name="id")Integer id){
     ModelAndView mv = new ModelAndView("detalhesfuncionarioT");
-    mv.addObject("funcionario", funcService.getFuncionarioById(id));
+    mv.addObject("funcionario", funcionarioService.getFuncionarioById(id));
     return mv;
     }
 }

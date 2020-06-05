@@ -1,13 +1,11 @@
 package com.projetofinal.projetofinalnobregavicente.controller;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Agenda;
 import com.projetofinal.projetofinalnobregavicente.services.AgendaService;
+import com.projetofinal.projetofinalnobregavicente.services.ClienteService;
+import com.projetofinal.projetofinalnobregavicente.services.FuncionarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class AgendaController {
     
     @Autowired
-    AgendaService agendaService;
+    private AgendaService agendaService;
+
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private FuncionarioService funcionarioService;
 
     // Gets
     @GetMapping("/template")
@@ -31,6 +35,8 @@ public class AgendaController {
         ModelAndView mv = new ModelAndView("agendaTemplate");
         mv.addObject("agenda", new Agenda());
         mv.addObject("agendamentos", agendaService.getAllAgendas());
+        mv.addObject("clientes", clienteService.getAllClientes());
+        mv.addObject("funcionarios", funcionarioService.getAllFuncionarios());
         return mv;
     }
 
@@ -43,6 +49,9 @@ public class AgendaController {
             
         String dataFormatada = date + " " + hour + ":00.000";
         agenda.setData(Timestamp.valueOf(dataFormatada));
+        agenda.setSalao(agenda.getFuncionario().getSalao());
+        agenda.getCliente().setAgendamento(agenda);
+        agendaService.saveAgenda(agenda);
         return "redirect:/agenda/template";
     }
 }

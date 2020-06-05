@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClienteController {
     
     @Autowired
-    ClienteService clienteService;
+    private ClienteService clienteService;
 
     // Gets
     @GetMapping("/template")

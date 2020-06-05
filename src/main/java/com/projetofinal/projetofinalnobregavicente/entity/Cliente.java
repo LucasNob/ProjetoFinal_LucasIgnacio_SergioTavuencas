@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,6 +24,7 @@ public class Cliente implements Serializable {
     private String telefone;
 
     @OneToOne
+    @JoinColumn(name="AGENDA_CLIENTE")
     private Agenda agendamento;
 
     public int getId() {
@@ -67,7 +69,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente [agendamento=" + agendamento + ", cpf=" + cpf + ", id=" + id + ", nome=" + nome + ", telefone="
+        return "Cliente [agendamento=" + agendamento.getData() + ", cpf=" + cpf + ", id=" + id + ", nome=" + nome + ", telefone="
                 + telefone + "]";
     }
 } 

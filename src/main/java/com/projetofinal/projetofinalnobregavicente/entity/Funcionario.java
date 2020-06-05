@@ -30,7 +30,7 @@ public class Funcionario implements Serializable{
     private Salao salao;
 
     @OneToMany
-    @JoinColumn(name="FUNCIONARIO_AGENDA")
+    @JoinColumn(name="AGENDA_FUNCIONARIO")
     private List<Agenda> agendamentos;
 
     public int getId() {

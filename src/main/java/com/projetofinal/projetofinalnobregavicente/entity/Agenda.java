@@ -1,7 +1,6 @@
 package com.projetofinal.projetofinalnobregavicente.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -26,11 +25,16 @@ public class Agenda implements Serializable {
     //implementar status no html
 
     @OneToOne
+    @JoinColumn(name="AGENDA_CLIENTE")
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name="AGENDA_FUNCIONARIO")
     private Funcionario funcionario;
+
+    @ManyToOne
+    @JoinColumn(name="AGENDA_SALAO")
+    private Salao salao;
 
     public int getId() {
         return id;
@@ -56,11 +60,6 @@ public class Agenda implements Serializable {
         this.funcionario = funcionario;
     }
 
-    @Override
-    public String toString() {
-        return "Agenda [cliente=" + cliente + ", data=" + data + ", funcionario=" + funcionario + ", id=" + id + "]";
-    }
-
     public Timestamp getData() {
         return data;
     }
@@ -68,4 +67,20 @@ public class Agenda implements Serializable {
     public void setData(Timestamp data) {
         this.data = data;
     }
+
+    public Salao getSalao() {
+        return salao;
+    }
+
+    public void setSalao(Salao salao) {
+        this.salao = salao;
+    }
+
+    @Override
+    public String toString() {
+        return "Agenda [cliente=" + cliente.getNome() + ", data=" + data + ", funcionario=" + funcionario.getNome() + ", id=" + id
+                + ", salao=" + salao.getNome() + "]";
+    }
+
+    
 }

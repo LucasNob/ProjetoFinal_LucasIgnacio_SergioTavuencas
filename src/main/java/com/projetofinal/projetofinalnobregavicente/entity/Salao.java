@@ -22,13 +22,14 @@ public class Salao implements Serializable{
     private int id;
     private String nome;
     private String telefone;
+    private String endereco;
 
     @OneToMany
-    @JoinColumn(name = "SALAO_FUNCIONARIO")
+    @JoinColumn(name = "FUNCIONARIO_SALAO")
     private List<Funcionario> funcionarios;
 
     @OneToMany
-    @JoinColumn(name = "SALAO_AGENDA")
+    @JoinColumn(name = "AGENDA_SALAO")
     private List<Agenda> agendamentos;
 
     public int getId() {
@@ -71,8 +72,16 @@ public class Salao implements Serializable{
         this.agendamentos = agendamentos;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     @Override
     public String toString() {
-        return "Salao [id=" + id + ", nome=" + nome + ", telefone=" + telefone + "]";
+        return "Salao [endereco=" + endereco + ", id=" + id + ", nome=" + nome + ", telefone=" + telefone + "]";
     }
 }

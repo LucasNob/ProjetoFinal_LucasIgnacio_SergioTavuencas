@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funcionário Template</title>
+    <title>Editar Funcionário</title>
     <style>
         table, th, td {
           border: 2px solid black;
@@ -14,9 +14,13 @@
     <h1 align="center"><a href="/">Menu</a></h1>
     <br>
     <div align="center">
-        <h1>Cadastro</h1>
-        <form th:action="@{/funcionario/cadastrar}" th:object="${funcionario}" method="POST">
+        <form th:action="@{/funcionario/cadastrar}" th:object="${funcionario}" method="POST" id="formFuncionario">
             <table>
+                <tr>
+                    <td>Id:</td>
+                    <td><span th:text="${funcionario.id}"></span></td>
+                    <input type="hidden" th:value="${funcionario.id}" th:field="${funcionario.id}" name="id"/>
+                </tr>
                 <tr>
                     <td>Nome:</td>
                     <td><input type="text" name="nome" required/></td>
@@ -44,34 +48,9 @@
             </table>
             <br><br>
             <div>
-                <input type="submit" value="Cadastrar"/>
+                <input type="reset" value="Resetar"/>
+                <input type="submit" value="Atualizar"/>
             </div>
-        </form>
-    </div>
-    <br>
-    <br>
-    <div align="center">
-        <table>
-            <h1>Funcionários</h1>
-        
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Telefone</th>
-                <th>Salão</th>
-            </tr>
-        
-            <tr th:each="funcionario : ${funcionarios}">
-                <td th:text="${funcionario.id}"></td>
-                <td th:text="${funcionario.nome}"></td>
-                <td th:text="${funcionario.cpf}"></td>
-                <td th:text="${funcionario.telefone}"></td>
-                <td th:text="${funcionario.salao?.nome}"></td>
-                <td><a th:href="@{'/funcionario/editar?funcionario_id=' + ${funcionario.id}}">Editar</a></td>
-                <td><a th:href="@{'/funcionario/remove?funcionario_id=' + ${funcionario.id}}">Remover</a></td>
-            </tr>
-        </table>
     </div>
 </body>
 </html>

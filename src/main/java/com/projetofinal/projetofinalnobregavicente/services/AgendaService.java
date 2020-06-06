@@ -25,4 +25,8 @@ public class AgendaService {
     public List<Agenda> getAllAgendas() {
         return agendaRepository.findAll();
     }
+
+    public void removeAgenda(Agenda agenda) {
+        agendaRepository.delete(agenda);
+    }
 }

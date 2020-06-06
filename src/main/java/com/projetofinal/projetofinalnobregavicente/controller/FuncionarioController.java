@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,6 +24,7 @@ public class FuncionarioController {
     @Autowired
     private SalaoService salaoService;
 
+    // Gets
     @GetMapping("/template")
     public ModelAndView getTemplate(){
         ModelAndView mv= new ModelAndView("funcionarioTemplate");
@@ -32,9 +34,19 @@ public class FuncionarioController {
         return mv;
     }
 
-    @PostMapping("/cadastrar")
-    public String savefuncionario(@ModelAttribute Funcionario funcionario){
-        funcionarioService.saveFuncionario(funcionario);
+    @GetMapping("/editar")
+    public ModelAndView getAgenda(@RequestParam Integer funcionario_id) {
+        ModelAndView mv = new ModelAndView("funcionarioEditar");
+        mv.addObject("funcionario", funcionarioService.getFuncionarioById(funcionario_id));
+        mv.addObject("saloes", salaoService.getAllSalaos());
+        return mv;
+    }
+
+    @GetMapping("/remove")
+    public String removeAgenda(@RequestParam Integer funcionario_id) {
+        Funcionario funcionario = funcionarioService.getFuncionarioById(funcionario_id);
+        funcionarioService.removeFuncionario(funcionario);
+        
         return "redirect:/funcionario/template";
     }
 
@@ -43,5 +55,12 @@ public class FuncionarioController {
     ModelAndView mv = new ModelAndView("detalhesfuncionarioT");
     mv.addObject("funcionario", funcionarioService.getFuncionarioById(id));
     return mv;
+    }
+
+    // Posts
+    @PostMapping("/cadastrar")
+    public String savefuncionario(@ModelAttribute Funcionario funcionario){
+        funcionarioService.saveFuncionario(funcionario);
+        return "redirect:/funcionario/template";
     }
 }

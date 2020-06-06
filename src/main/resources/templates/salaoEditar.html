@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Salão</title>
+    <style>
+        table, th, td {
+          border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center"><a href="/">Menu</a></h1>
+    <br>
+    <div align="center">
+        <form th:action="@{/salao/cadastrar}" th:object="${salao}" method="POST" id="formSalao">
+            <table>
+                <tr>
+                    <td>Id:</td>
+                    <td><span th:text="${salao.id}"></span></td>
+                    <input type="hidden" th:value="${salao.id}" th:field="${salao.id}" name="id"/>
+                </tr>
+                <tr>
+                    <td>Nome:</td>
+                    <td><input type="text" name="nome" required/></td>
+                </tr>
+                <tr>
+                    <td>Telefone:</td>
+                    <td><input type="text" name="telefone" required/></td>
+                </tr>
+                <tr>
+                    <td>Endereço:</td>
+                    <td><input type="text" name="endereco" required/></td>
+                </tr>
+            </table>
+            <br><br>
+            <div>
+                <input type="reset" value="Resetar"/>
+                <input type="submit" value="Atualizar"/>
+            </div>
+    </div>
+</body>
+</html>

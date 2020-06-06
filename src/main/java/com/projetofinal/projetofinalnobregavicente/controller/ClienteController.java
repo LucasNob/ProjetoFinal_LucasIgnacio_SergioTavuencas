@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,6 +26,21 @@ public class ClienteController {
         mv.addObject("cliente", new Cliente());
         mv.addObject("clientes", clienteService.getAllClientes());
         return mv;
+    }
+
+    @GetMapping("/editar")
+    public ModelAndView getAgenda(@RequestParam Integer cliente_id) {
+        ModelAndView mv = new ModelAndView("clienteEditar");
+        mv.addObject("cliente", clienteService.getClienteById(cliente_id));
+        return mv;
+    }
+
+    @GetMapping("/remove")
+    public String removeAgenda(@RequestParam Integer cliente_id) {
+        Cliente cliente = clienteService.getClienteById(cliente_id);
+        clienteService.removeCliente(cliente);
+        
+        return "redirect:/cliente/template";
     }
 
     // Posts

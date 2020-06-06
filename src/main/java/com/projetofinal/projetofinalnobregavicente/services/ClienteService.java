@@ -25,4 +25,8 @@ public class ClienteService {
     public List<Cliente> getAllClientes() {
         return clienteRepository.findAll();
     }
+
+    public void removeCliente(Cliente cliente) {
+        clienteRepository.delete(cliente);
+    }
 }

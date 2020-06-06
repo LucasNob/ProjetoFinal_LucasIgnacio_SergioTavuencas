@@ -30,6 +30,7 @@
                     <td><input type="text" name="telefone" required/></td>
                 </tr>
             </table>
+            <br><br>
             <div>
                 <input type="submit" value="Cadastrar"/>
             </div>
@@ -53,6 +54,8 @@
                 <td th:text="${cliente.nome}"></td>
                 <td th:text="${cliente.cpf}"></td>
                 <td th:text="${cliente.telefone}"></td>
+                <td><a th:href="@{'/cliente/editar?cliente_id=' + ${cliente.id}}">Editar</a></td>
+                <td><a th:href="@{'/cliente/remove?cliente_id=' + ${cliente.id}}">Remover</a></td>
             </tr>
         </table>
     </div>

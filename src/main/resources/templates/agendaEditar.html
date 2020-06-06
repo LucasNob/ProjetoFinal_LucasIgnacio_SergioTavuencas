@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Template</title>
+    <title>Editar Agendamento</title>
     <style>
         table, th, td {
           border: 2px solid black;
@@ -14,9 +14,18 @@
     <h1 align="center"><a href="/">Menu</a></h1>
     <br>
     <div align="center">
-        <h1>Agendamento</h1>
-        <form th:action="@{/agenda/agendar}" th:object="${agenda}" method="POST">
+        <form th:action="@{/agenda/agendar}" th:object="${agenda}" method="POST" id="formAgenda">
             <table>
+                <tr>
+                    <td>Id:</td>
+                    <td><span th:text="${agenda.id}"></span></td>
+                    <input type="hidden" th:value="${agenda.id}" th:field="${agenda.id}" name="id"/>
+                </tr>
+                <tr>
+                    <td>Salão:</td>
+                    <td><span th:text="${agenda.salao.nome}"></span></td>
+                    <input type="hidden" th:value="${agenda.salao.nome}" th:field="${agenda.salao.nome}" name="salao"/>
+                </tr>
                 <tr>
                     <td>Cliente: </td>
                     <td>
@@ -52,32 +61,9 @@
             </table>
             <br><br>
             <div>
-                <input type="submit" value="Agendar"/>
+                <input type="reset" value="Resetar"/>
+                <input type="submit" value="Atualizar"/>
             </div>
-        </form>
-    </div>
-    <br>
-    <br>
-    <div align="center">
-        <table>
-            <h1>Agendamentos</h1>
-        
-            <tr>
-                <th>Id</th>
-                <th>Data e Hora</th>
-                <th>Cliente</th>
-                <th>Funcionário</th>
-            </tr>
-        
-            <tr th:each="agenda : ${agendas}">
-                <td th:text="${agenda.id}"></td>
-                <td th:text="${agenda.data}"></td>
-                <td th:text="${agenda.cliente?.nome}"></td>
-                <td th:text="${agenda.funcionario?.nome}"></td>
-                <td><a th:href="@{'/agenda/editar?agenda_id=' + ${agenda.id}}">Editar</a></td>
-                <td><a th:href="@{'/agenda/remove?agenda_id=' + ${agenda.id}}">Remover</a></td>
-            </tr>
-        </table>
     </div>
 </body>
 </html>

@@ -25,4 +25,8 @@ public class SalaoService {
     public List<Salao> getAllSalaos() {
         return salaoRepository.findAll();
     }
+
+    public void removeSalao(Salao salao) {
+        salaoRepository.delete(salao);
+    }
 }

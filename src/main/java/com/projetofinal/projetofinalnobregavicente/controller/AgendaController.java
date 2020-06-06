@@ -3,6 +3,7 @@ package com.projetofinal.projetofinalnobregavicente.controller;
 import java.sql.Timestamp;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Agenda;
+import com.projetofinal.projetofinalnobregavicente.entity.Salao;
 import com.projetofinal.projetofinalnobregavicente.services.AgendaService;
 import com.projetofinal.projetofinalnobregavicente.services.ClienteService;
 import com.projetofinal.projetofinalnobregavicente.services.FuncionarioService;
@@ -34,13 +35,30 @@ public class AgendaController {
     public ModelAndView getTemplate() {
         ModelAndView mv = new ModelAndView("agendaTemplate");
         mv.addObject("agenda", new Agenda());
-        mv.addObject("agendamentos", agendaService.getAllAgendas());
+        mv.addObject("agendas", agendaService.getAllAgendas());
         mv.addObject("clientes", clienteService.getAllClientes());
         mv.addObject("funcionarios", funcionarioService.getAllFuncionarios());
         return mv;
     }
 
-    // Sets
+    @GetMapping("/editar")
+    public ModelAndView getAgenda(@RequestParam Integer agenda_id) {
+        ModelAndView mv = new ModelAndView("agendaEditar");
+        mv.addObject("agenda", agendaService.getAgendaById(agenda_id));
+        mv.addObject("clientes", clienteService.getAllClientes());
+        mv.addObject("funcionarios", funcionarioService.getAllFuncionarios());
+        return mv;
+    }
+
+    @GetMapping("/remove")
+    public String removeAgenda(@RequestParam Integer agenda_id) {
+        Agenda agenda = agendaService.getAgendaById(agenda_id);
+        agendaService.removeAgenda(agenda);
+        
+        return "redirect:/agenda/template";
+    }
+
+    // Posts
     @PostMapping("/agendar")
     public String saveAgenda(
         @ModelAttribute Agenda agenda, 
@@ -48,9 +66,12 @@ public class AgendaController {
         @RequestParam("hour") String hour) {
             
         String dataFormatada = date + " " + hour + ":00.000";
+        Salao salao = agenda.getFuncionario().getSalao();
+
         agenda.setData(Timestamp.valueOf(dataFormatada));
-        agenda.setSalao(agenda.getFuncionario().getSalao());
+        agenda.setSalao(salao);
         agenda.getCliente().setAgendamento(agenda);
+
         agendaService.saveAgenda(agenda);
         return "redirect:/agenda/template";
     }

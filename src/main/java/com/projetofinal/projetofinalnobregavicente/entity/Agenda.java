@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,7 +25,7 @@ public class Agenda implements Serializable {
     private Timestamp data;
     //implementar status no html
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="AGENDA_CLIENTE")
     private Cliente cliente;
 

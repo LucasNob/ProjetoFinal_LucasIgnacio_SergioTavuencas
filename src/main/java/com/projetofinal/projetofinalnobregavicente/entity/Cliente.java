@@ -1,13 +1,14 @@
 package com.projetofinal.projetofinalnobregavicente.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente implements Serializable {
@@ -23,9 +24,9 @@ public class Cliente implements Serializable {
     private String cpf;
     private String telefone;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name="AGENDA_CLIENTE")
-    private Agenda agendamento;
+    private List<Agenda> agendamento;
 
     public int getId() {
         return id;
@@ -59,17 +60,19 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    public Agenda getAgendamento() {
+    public List<Agenda> getAgendamento() {
         return agendamento;
     }
 
-    public void setAgendamento(Agenda agendamento) {
+    public void setAgendamento(List<Agenda> agendamento) {
         this.agendamento = agendamento;
     }
 
     @Override
     public String toString() {
-        return "Cliente [agendamento=" + agendamento.getData() + ", cpf=" + cpf + ", id=" + id + ", nome=" + nome + ", telefone="
+        return "Cliente [agendamento=" + agendamento + ", cpf=" + cpf + ", id=" + id + ", nome=" + nome + ", telefone="
                 + telefone + "]";
     }
+
+
 } 

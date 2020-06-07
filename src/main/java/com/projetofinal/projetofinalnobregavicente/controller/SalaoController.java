@@ -29,14 +29,14 @@ public class SalaoController {
     }
 
     @GetMapping("/editar")
-    public ModelAndView getAgenda(@RequestParam Integer salao_id) {
+    public ModelAndView getSalao(@RequestParam Integer salao_id) {
         ModelAndView mv = new ModelAndView("salaoEditar");
         mv.addObject("salao", salaoService.getSalaoById(salao_id));
         return mv;
     }
 
     @GetMapping("/remove")
-    public String removeAgenda(@RequestParam Integer salao_id) {
+    public String removeSalao(@RequestParam Integer salao_id) {
         Salao salao = salaoService.getSalaoById(salao_id);
         salaoService.removeSalao(salao);
         

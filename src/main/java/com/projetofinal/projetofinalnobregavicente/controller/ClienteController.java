@@ -1,6 +1,7 @@
 package com.projetofinal.projetofinalnobregavicente.controller;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Cliente;
+import com.projetofinal.projetofinalnobregavicente.services.AgendaService;
 import com.projetofinal.projetofinalnobregavicente.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private AgendaService agendaService;
+
     // Gets
     @GetMapping("/template")
     public ModelAndView getTemplate() {
@@ -29,15 +33,16 @@ public class ClienteController {
     }
 
     @GetMapping("/editar")
-    public ModelAndView getAgenda(@RequestParam Integer cliente_id) {
+    public ModelAndView getCliente(@RequestParam Integer cliente_id) {
         ModelAndView mv = new ModelAndView("clienteEditar");
         mv.addObject("cliente", clienteService.getClienteById(cliente_id));
         return mv;
     }
 
     @GetMapping("/remove")
-    public String removeAgenda(@RequestParam Integer cliente_id) {
+    public String removeCliente(@RequestParam Integer cliente_id) {
         Cliente cliente = clienteService.getClienteById(cliente_id);
+        agendaService.removeAgendamentos(cliente);
         clienteService.removeCliente(cliente);
         
         return "redirect:/cliente/template";

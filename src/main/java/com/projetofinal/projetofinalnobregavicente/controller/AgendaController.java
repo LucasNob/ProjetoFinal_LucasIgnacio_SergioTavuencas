@@ -52,27 +52,39 @@ public class AgendaController {
 
     @GetMapping("/remove")
     public String removeAgenda(@RequestParam Integer agenda_id) {
-        Agenda agenda = agendaService.getAgendaById(agenda_id);
-        agendaService.removeAgenda(agenda);
+        //Agenda agenda = agendaService.getAgendaById(agenda_id);
+        agendaService.removeAgenda(agenda_id);
         
         return "redirect:/agenda/template";
     }
 
     // Posts
     @PostMapping("/agendar")
-    public String saveAgenda(
+    public ModelAndView saveAgenda(
         @ModelAttribute Agenda agenda, 
         @RequestParam("date") String date,
-        @RequestParam("hour") String hour) {
+        @RequestParam("hour") String hour) {      
             
+        String str;  //mensagem de erro no html
+        ModelAndView mv;
+
         String dataFormatada = date + " " + hour + ":00.000";
         Salao salao = agenda.getFuncionario().getSalao();
 
+        if((str=agendaService.verifyAgenda(Timestamp.valueOf(dataFormatada),agenda.getFuncionario()))!=null){
+            mv = new ModelAndView("agendaTemplate");
+            mv.addObject("erro",str);
+            mv.addObject("agenda", new Agenda());
+            mv.addObject("agendas", agendaService.getAllAgendas());
+            mv.addObject("clientes", clienteService.getAllClientes());
+            mv.addObject("funcionarios", funcionarioService.getAllFuncionarios());
+            return mv;
+        }
         agenda.setData(Timestamp.valueOf(dataFormatada));
         agenda.setSalao(salao);
-        agenda.getCliente().setAgendamento(agenda);
+        agenda.getCliente().getAgendamento().add(agenda);
 
         agendaService.saveAgenda(agenda);
-        return "redirect:/agenda/template";
+        return mv = new ModelAndView("redirect:/agenda/template");
     }
 }

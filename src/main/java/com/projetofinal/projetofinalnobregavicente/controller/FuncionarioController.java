@@ -1,6 +1,7 @@
 package com.projetofinal.projetofinalnobregavicente.controller;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
+import com.projetofinal.projetofinalnobregavicente.services.AgendaService;
 import com.projetofinal.projetofinalnobregavicente.services.FuncionarioService;
 import com.projetofinal.projetofinalnobregavicente.services.SalaoService;
 
@@ -23,6 +24,9 @@ public class FuncionarioController {
 
     @Autowired
     private SalaoService salaoService;
+    
+    @Autowired 
+    private AgendaService agendaService;
 
     // Gets
     @GetMapping("/template")
@@ -35,7 +39,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/editar")
-    public ModelAndView getAgenda(@RequestParam Integer funcionario_id) {
+    public ModelAndView getFuncionario(@RequestParam Integer funcionario_id) {
         ModelAndView mv = new ModelAndView("funcionarioEditar");
         mv.addObject("funcionario", funcionarioService.getFuncionarioById(funcionario_id));
         mv.addObject("saloes", salaoService.getAllSalaos());
@@ -43,10 +47,10 @@ public class FuncionarioController {
     }
 
     @GetMapping("/remove")
-    public String removeAgenda(@RequestParam Integer funcionario_id) {
+    public String removeFuncionario(@RequestParam Integer funcionario_id) {
         Funcionario funcionario = funcionarioService.getFuncionarioById(funcionario_id);
+        agendaService.removeAgendamentos(funcionario);
         funcionarioService.removeFuncionario(funcionario);
-        
         return "redirect:/funcionario/template";
     }
 

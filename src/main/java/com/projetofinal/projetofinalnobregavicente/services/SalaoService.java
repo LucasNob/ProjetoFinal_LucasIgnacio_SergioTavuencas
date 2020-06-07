@@ -27,6 +27,6 @@ public class SalaoService {
     }
 
     public void removeSalao(Salao salao) {
-        salaoRepository.delete(salao);
+        salaoRepository.deleteById(salao.getId());
     }
 }

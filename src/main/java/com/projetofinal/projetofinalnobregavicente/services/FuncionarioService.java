@@ -2,7 +2,9 @@ package com.projetofinal.projetofinalnobregavicente.services;
 
 import java.util.List;
 
+import com.projetofinal.projetofinalnobregavicente.entity.Agenda;
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
+import com.projetofinal.projetofinalnobregavicente.repository.AgendaRepository;
 import com.projetofinal.projetofinalnobregavicente.repository.FuncionarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class FuncionarioService {
     
     @Autowired
     FuncionarioRepository funcionarioRepository;
+    
+    @Autowired
+    AgendaRepository agendaRepository;
 
     public void saveFuncionario(Funcionario funcionario) {
         funcionarioRepository.save(funcionario);
@@ -27,6 +32,6 @@ public class FuncionarioService {
     }
 
     public void removeFuncionario(Funcionario funcionario) {
-        funcionarioRepository.delete(funcionario);
-    }
+        funcionarioRepository.deleteById(funcionario.getId());
+    } 
 }

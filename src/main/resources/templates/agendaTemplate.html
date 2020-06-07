@@ -43,11 +43,11 @@
                 </tr>
                 <tr>
                     <td>Data:</td>
-                    <td><input type="date" name="date"  min="2000-01-02"  max="2100-12-31" required/></td>
+                    <td><input type="date" name="date"  min="2020-06-01"  max="2100-12-31" required/></td>
                 </tr>
                 <tr>
                     <td>Hora:</td>
-                    <td><input type="time" name="hour" required/></td>
+                    <td><input type="time" name="hour" min="09:00" max="18:00" required/></td>
                 </tr>
             </table>
             <p style="color:red" th:text="${erro}"></p>

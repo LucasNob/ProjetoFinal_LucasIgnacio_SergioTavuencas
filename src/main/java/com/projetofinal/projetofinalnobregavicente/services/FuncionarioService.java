@@ -2,7 +2,6 @@ package com.projetofinal.projetofinalnobregavicente.services;
 
 import java.util.List;
 
-import com.projetofinal.projetofinalnobregavicente.entity.Agenda;
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
 import com.projetofinal.projetofinalnobregavicente.repository.AgendaRepository;
 import com.projetofinal.projetofinalnobregavicente.repository.FuncionarioRepository;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos Salão</title>
+    <style>
+        table, th, td {
+          border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center"><a href="/">Menu</a></h1>
+    <br>
+    <div align="center">
+        <h1>Salão</h1>
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td><span th:text="${salao.id}"></span></td>
+            </tr>
+            <tr>
+                <td>Nome:</td>
+                <td><span th:text="${salao.nome}"></span></td>
+            </tr>
+            <tr>
+                <td>Telefone:</td>
+                <td><span th:text="${salao.telefone}"></span></td>
+            </tr>
+            <tr>
+                <td>Endereço:</td>
+                <td><span th:text="${salao.endereco}"></span></td>
+            </tr>
+        </table>
+    </div>
+    <br><br>
+    <div align="center">
+        <table>
+            <h1>Agendamentos</h1>
+        
+            <tr>
+                <th>Id</th>
+                <th>Data e Horário</th>
+                <th>Cliente</th>
+                <th>Funcionário</th>
+            </tr>
+        
+            <tr th:each="agenda : ${agendamentos}">
+                <td th:text="${agenda.id}"></td>
+                <td th:text="${agenda.data}"></td>
+                <td th:text="${agenda.cliente?.nome}"></td>
+                <td th:text="${agenda.funcionario?.nome}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

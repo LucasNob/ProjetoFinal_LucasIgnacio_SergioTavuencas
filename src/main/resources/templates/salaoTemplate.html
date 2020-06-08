@@ -54,6 +54,7 @@
                 <td th:text="${salao.nome}"></td>
                 <td th:text="${salao.telefone}"></td>
                 <td th:text="${salao.endereco}"></td>
+                <td><a th:href="@{'/salao/agendamentos/' + ${salao.id}}">Agendamentos</a></td>
                 <td><a th:href="@{'/salao/editar?salao_id=' + ${salao.id}}">Editar</a></td>
                 <td><a th:href="@{'/salao/remove?salao_id=' + ${salao.id}}">Remover</a></td>
             </tr>

@@ -68,6 +68,7 @@
                 <td th:text="${funcionario.cpf}"></td>
                 <td th:text="${funcionario.telefone}"></td>
                 <td th:text="${funcionario.salao?.nome}"></td>
+                <td><a th:href="@{'/funcionario/agendamentos/' + ${funcionario.id}}">Agendamentos</a></td>
                 <td><a th:href="@{'/funcionario/editar?funcionario_id=' + ${funcionario.id}}">Editar</a></td>
                 <td><a th:href="@{'/funcionario/remove?funcionario_id=' + ${funcionario.id}}">Remover</a></td>
             </tr>

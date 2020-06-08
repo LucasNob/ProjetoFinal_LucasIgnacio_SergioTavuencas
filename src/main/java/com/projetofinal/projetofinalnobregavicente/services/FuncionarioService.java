@@ -3,6 +3,7 @@ package com.projetofinal.projetofinalnobregavicente.services;
 import java.util.List;
 
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
+import com.projetofinal.projetofinalnobregavicente.entity.Salao;
 import com.projetofinal.projetofinalnobregavicente.repository.AgendaRepository;
 import com.projetofinal.projetofinalnobregavicente.repository.FuncionarioRepository;
 
@@ -32,5 +33,12 @@ public class FuncionarioService {
 
     public void removeFuncionario(Funcionario funcionario) {
         funcionarioRepository.deleteById(funcionario.getId());
-    } 
+    }
+
+    public void removeFuncionariosSalao(Salao salao) {
+        for(Funcionario funcionario : funcionarioRepository.findAll()) {
+            if(funcionario.getSalao().equals(salao))
+                removeFuncionario(funcionario);
+        }
+    }
 }

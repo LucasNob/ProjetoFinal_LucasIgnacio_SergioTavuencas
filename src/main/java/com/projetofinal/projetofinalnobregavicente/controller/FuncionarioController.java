@@ -38,6 +38,14 @@ public class FuncionarioController {
         return mv;
     }
 
+    @GetMapping("/agendamentos/{id}")
+    public ModelAndView getAgendamentosSalao(@PathVariable("id") Integer funcionario_id) {
+        ModelAndView mv = new ModelAndView("funcionarioAgendamentos");
+        mv.addObject("funcionario", funcionarioService.getFuncionarioById(funcionario_id));
+        mv.addObject("agendamentos", funcionarioService.getFuncionarioById(funcionario_id).getAgendamentos());
+        return mv;
+    }
+
     @GetMapping("/editar")
     public ModelAndView getFuncionario(@RequestParam Integer funcionario_id) {
         ModelAndView mv = new ModelAndView("funcionarioEditar");
@@ -49,16 +57,9 @@ public class FuncionarioController {
     @GetMapping("/remove")
     public String removeFuncionario(@RequestParam Integer funcionario_id) {
         Funcionario funcionario = funcionarioService.getFuncionarioById(funcionario_id);
-        agendaService.removeAgendamentos(funcionario);
+        agendaService.removeAgendamentosFuncionario(funcionario);
         funcionarioService.removeFuncionario(funcionario);
         return "redirect:/funcionario/template";
-    }
-
-    @GetMapping("/detalhes/{id}")
-    public ModelAndView detalhesFuncionario(@PathVariable(name="id")Integer id){
-    ModelAndView mv = new ModelAndView("detalhesfuncionarioT");
-    mv.addObject("funcionario", funcionarioService.getFuncionarioById(id));
-    return mv;
     }
 
     // Posts

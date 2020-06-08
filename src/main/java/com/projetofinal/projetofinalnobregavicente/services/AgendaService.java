@@ -7,6 +7,7 @@ import java.util.List;
 import com.projetofinal.projetofinalnobregavicente.entity.Agenda;
 import com.projetofinal.projetofinalnobregavicente.entity.Cliente;
 import com.projetofinal.projetofinalnobregavicente.entity.Funcionario;
+import com.projetofinal.projetofinalnobregavicente.entity.Salao;
 import com.projetofinal.projetofinalnobregavicente.repository.AgendaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,6 @@ public class AgendaService {
     public String verifyAgenda(Timestamp t,Funcionario f){
         int intervalo=30; //intervalo entre agendamentos em minutos
         List<Agenda> agendas = getAllAgendas();
-        //Timestamp datainicial   = new Timestamp(System.currentTimeMillis()); //data e hora atual
-        //Timestamp datafinal     = new Timestamp(System.currentTimeMillis());
         Calendar    datafinal= Calendar.getInstance(), 
                     datainicial = Calendar.getInstance(),
                     d=Calendar.getInstance();
@@ -53,33 +52,37 @@ public class AgendaService {
 
         for (Agenda a : agendas) 
         {
-        if(a.getFuncionario().getId()==f.getId()){
-            d.setTimeInMillis(a.getData().getTime());
+            if(a.getFuncionario().getId()==f.getId()){
+                d.setTimeInMillis(a.getData().getTime());
         
-            if(datainicial.before(d) && datafinal.after(d))
-                return "Funcionario ja esta agendado nesta faixa horario";   
+                if(datainicial.before(d) && datafinal.after(d))
+                    return "Funcionario ja esta agendado nesta faixa horario";   
             }  
         }
-
-        
-          //  if(a.getFuncionario().getId()==f.getId() && a.getData().equals(t)) // impede o agendamento de um funcionario na mesma hora exata
-              //  return "Funcionario ja esta agendado neste horario"; 
     
         return null;
     }
 
-    public void removeAgendamentos(Funcionario func){
-        int id= func.getId();
+    public void removeAgendamentosFuncionario(Funcionario funcionario){
+        int id = funcionario.getId();
         for (Agenda a : agendaRepository.findAll()) {
             if(a.getFuncionario().getId() == id)
                 agendaRepository.deleteById(a.getId());
         }
     }
-    public void removeAgendamentos(Cliente cliente){
+
+    public void removeAgendamentoCliente(Cliente cliente){
         int id= cliente.getId();
         for (Agenda a : agendaRepository.findAll()) {
             if(a.getCliente().getId() == id)
                 agendaRepository.deleteById(a.getId());
+        }
+    }
+    
+    public void removeAgendamentosSalao(Salao salao) {
+        for(Agenda agenda : agendaRepository.findAll()) {
+            if(agenda.getSalao().equals(salao))
+                removeAgenda(agenda.getId());
         }
     }
 }

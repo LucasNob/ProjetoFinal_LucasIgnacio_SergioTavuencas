@@ -42,7 +42,7 @@ public class ClienteController {
     @GetMapping("/remove")
     public String removeCliente(@RequestParam Integer cliente_id) {
         Cliente cliente = clienteService.getClienteById(cliente_id);
-        agendaService.removeAgendamentos(cliente);
+        agendaService.removeAgendamentoCliente(cliente);
         clienteService.removeCliente(cliente);
         
         return "redirect:/cliente/template";
